@@ -1,0 +1,25 @@
+<view class="idcard-container">
+  <!-- 输入区域 -->
+  <view class="input-section">
+    <input type="text" placeholder="请输入身份证号码" bindinput="onIdCardInput" value="{{idCardNumber}}" class="idcard-input" maxlength="18" />
+  </view>
+
+  <!-- 校验按钮 -->
+  <view class="button-section">
+    <button class="verify-button" bindtap="verifyIdCard" type="primary" disabled="{{!idCardNumber}}">校验身份证号</button>
+  </view>
+
+  <!-- 结果显示 -->
+  <view class="result-section" wx:if="{{result}}">
+    <text class="result-title">校验结果：</text>
+    <view class="result-item" wx:for="{{result}}" wx:key="key">
+      <text class="result-label">{{item.label}}：</text>
+      <text class="result-value">{{item.value}}</text>
+    </view>
+  </view>
+
+  <!-- 校验状态 -->
+  <view class="status-section" wx:if="{{status}}">
+    <text class="status-text" style="color: {{status === 'valid' ? '#4CAF50' : '#F44336'}}">{{status === 'valid' ? '身份证号有效' : '身份证号无效'}}</text>
+  </view>
+</view>

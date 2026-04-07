@@ -1,0 +1,30 @@
+<view class="ruler-container">
+  <!-- 尺子显示区域 -->
+  <view class="ruler-area">
+    <scroll-view scroll-x class="ruler-scroll">
+      <view class="ruler">
+        <view class="ruler-mark" wx:for="{{rulerMarks}}" wx:key="index" style="left: {{item.position}}rpx; height: {{item.height}}rpx;">
+          <text class="ruler-text" wx:if="{{item.text}}">{{item.text}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 控制区域 -->
+  <view class="control-area">
+    <!-- 单位切换 -->
+    <view class="setting-section">
+      <text class="setting-label">单位</text>
+      <view class="unit-selector">
+        <view class="unit-item" bindtap="switchUnit" data-unit="cm" class="{{unit === 'cm' ? 'active' : ''}}">厘米</view>
+        <view class="unit-item" bindtap="switchUnit" data-unit="inch" class="{{unit === 'inch' ? 'active' : ''}}">英寸</view>
+      </view>
+    </view>
+
+    <!-- 测量说明 -->
+    <view class="instruction">
+      <text class="instruction-text">使用说明：</text>
+      <text class="instruction-detail">左右滑动查看更多刻度，将被测物体与尺子对齐进行测量</text>
+    </view>
+  </view>
+</view>

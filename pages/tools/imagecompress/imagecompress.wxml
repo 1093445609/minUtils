@@ -1,0 +1,47 @@
+<view class="imagecompress-container">
+  <!-- 图片选择 -->
+  <view class="select-section">
+    <button class="select-button" bindtap="selectImage" type="primary">选择图片</button>
+  </view>
+
+  <!-- 图片预览 -->
+  <view class="preview-section" wx:if="{{originalImage}}">
+    <text class="section-title">原始图片</text>
+    <image src="{{originalImage}}" mode="aspectFit" class="preview-image"></image>
+    <text class="image-info">大小: {{originalSize}}KB</text>
+  </view>
+
+  <!-- 压缩设置 -->
+  <view class="setting-section" wx:if="{{originalImage}}">
+    <text class="section-title">压缩设置</text>
+    <view class="setting-item">
+      <text class="setting-label">压缩质量</text>
+      <slider min="10" max="100" value="{{quality}}" bindchange="onQualityChange" class="slider" />
+      <text class="setting-value">{{quality}}%</text>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">图片尺寸</text>
+      <picker bindchange="onSizeChange" value="{{sizeIndex}}" range="{{sizeOptions}}" class="size-picker">
+        <view class="picker-text">{{sizeOptions[sizeIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 压缩按钮 -->
+  <view class="button-section" wx:if="{{originalImage}}">
+    <button class="compress-button" bindtap="compressImage" type="primary">压缩图片</button>
+  </view>
+
+  <!-- 压缩结果 -->
+  <view class="result-section" wx:if="{{compressedImage}}">
+    <text class="section-title">压缩结果</text>
+    <image src="{{compressedImage}}" mode="aspectFit" class="preview-image"></image>
+    <text class="image-info">大小: {{compressedSize}}KB</text>
+    <text class="compression-rate">压缩率: {{compressionRate}}%</text>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="button-section" wx:if="{{compressedImage}}">
+    <button class="save-button" bindtap="saveImage" type="default">保存图片</button>
+  </view>
+</view>

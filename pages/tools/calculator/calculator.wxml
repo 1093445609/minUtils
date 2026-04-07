@@ -1,0 +1,92 @@
+<view class="calculator-container">
+  <!-- 模式切换 -->
+  <view class="mode-toggle">
+    <view class="mode-btn" bindtap="switchMode" data-mode="standard" class="{{mode === 'standard' ? 'active' : ''}}">标准</view>
+    <view class="mode-btn" bindtap="switchMode" data-mode="scientific" class="{{mode === 'scientific' ? 'active' : ''}}">科学</view>
+  </view>
+
+  <!-- 显示区域 -->
+  <view class="display-area">
+    <text class="expression">{{expression}}</text>
+    <text class="result">{{result}}</text>
+  </view>
+
+  <!-- 标准计算器按键 -->
+  <view class="keypad" wx:if="{{mode === 'standard'}}">
+    <view class="row">
+      <view class="key" bindtap="clear">C</view>
+      <view class="key" bindtap="backspace">←</view>
+      <view class="key" bindtap="inputOperator" data-op="%">%</view>
+      <view class="key operator" bindtap="inputOperator" data-op="/">÷</view>
+    </view>
+    <view class="row">
+      <view class="key" bindtap="inputNumber" data-num="7">7</view>
+      <view class="key" bindtap="inputNumber" data-num="8">8</view>
+      <view class="key" bindtap="inputNumber" data-num="9">9</view>
+      <view class="key operator" bindtap="inputOperator" data-op="*">×</view>
+    </view>
+    <view class="row">
+      <view class="key" bindtap="inputNumber" data-num="4">4</view>
+      <view class="key" bindtap="inputNumber" data-num="5">5</view>
+      <view class="key" bindtap="inputNumber" data-num="6">6</view>
+      <view class="key operator" bindtap="inputOperator" data-op="-">-</view>
+    </view>
+    <view class="row">
+      <view class="key" bindtap="inputNumber" data-num="1">1</view>
+      <view class="key" bindtap="inputNumber" data-num="2">2</view>
+      <view class="key" bindtap="inputNumber" data-num="3">3</view>
+      <view class="key operator" bindtap="inputOperator" data-op="+">+</view>
+    </view>
+    <view class="row">
+      <view class="key" bindtap="inputNumber" data-num="0">0</view>
+      <view class="key" bindtap="inputDecimal">.</view>
+      <view class="key equal" bindtap="calculate">=</view>
+    </view>
+  </view>
+
+  <!-- 科学计算器按键 -->
+  <view class="keypad scientific" wx:if="{{mode === 'scientific'}}">
+    <!-- 科学函数 -->
+    <view class="row">
+      <view class="key" bindtap="inputFunction" data-func="sin">sin</view>
+      <view class="key" bindtap="inputFunction" data-func="cos">cos</view>
+      <view class="key" bindtap="inputFunction" data-func="tan">tan</view>
+      <view class="key" bindtap="inputFunction" data-func="log">log</view>
+    </view>
+    <view class="row">
+      <view class="key" bindtap="inputFunction" data-func="sqrt">√</view>
+      <view class="key" bindtap="inputFunction" data-func="pow2">x²</view>
+      <view class="key" bindtap="inputFunction" data-func="pow3">x³</view>
+      <view class="key" bindtap="inputFunction" data-func="pow">x^y</view>
+    </view>
+    <view class="row">
+      <view class="key" bindtap="clear">C</view>
+      <view class="key" bindtap="backspace">←</view>
+      <view class="key" bindtap="inputOperator" data-op="%">%</view>
+      <view class="key operator" bindtap="inputOperator" data-op="/">÷</view>
+    </view>
+    <view class="row">
+      <view class="key" bindtap="inputNumber" data-num="7">7</view>
+      <view class="key" bindtap="inputNumber" data-num="8">8</view>
+      <view class="key" bindtap="inputNumber" data-num="9">9</view>
+      <view class="key operator" bindtap="inputOperator" data-op="*">×</view>
+    </view>
+    <view class="row">
+      <view class="key" bindtap="inputNumber" data-num="4">4</view>
+      <view class="key" bindtap="inputNumber" data-num="5">5</view>
+      <view class="key" bindtap="inputNumber" data-num="6">6</view>
+      <view class="key operator" bindtap="inputOperator" data-op="-">-</view>
+    </view>
+    <view class="row">
+      <view class="key" bindtap="inputNumber" data-num="1">1</view>
+      <view class="key" bindtap="inputNumber" data-num="2">2</view>
+      <view class="key" bindtap="inputNumber" data-num="3">3</view>
+      <view class="key operator" bindtap="inputOperator" data-op="+">+</view>
+    </view>
+    <view class="row">
+      <view class="key" bindtap="inputNumber" data-num="0">0</view>
+      <view class="key" bindtap="inputDecimal">.</view>
+      <view class="key equal" bindtap="calculate">=</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,120 @@
+.handheld-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
+/* 弹幕显示区域 */
+.display-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+  margin: 20rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.text {
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.5;
+  animation: scroll 10s linear infinite;
+}
+
+/* 滚动动画 */
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* 控制区域 */
+.control-area {
+  background-color: #ffffff;
+  border-top-left-radius: 24rpx;
+  border-top-right-radius: 24rpx;
+  padding: 30rpx 20rpx;
+  box-shadow: 0 -4rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+/* 输入区域 */
+.input-section {
+  margin-bottom: 30rpx;
+}
+
+.text-input {
+  width: 100%;
+  padding: 20rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+/* 设置区域 */
+.setting-section {
+  margin-bottom: 30rpx;
+}
+
+.setting-label {
+  display: block;
+  font-size: 26rpx;
+  color: #333333;
+  margin-bottom: 15rpx;
+  font-weight: 500;
+}
+
+/* 滑块 */
+.slider {
+  width: 100%;
+}
+
+/* 颜色选择器 */
+.color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.color-item {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.color-item:hover {
+  transform: scale(1.1);
+}
+
+/* 模式选择器 */
+.mode-selector {
+  display: flex;
+  gap: 20rpx;
+}
+
+.mode-item {
+  flex: 1;
+  padding: 15rpx;
+  text-align: center;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+  color: #666666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-item.active {
+  background-color: #007AFF;
+  color: #ffffff;
+  border-color: #007AFF;
+}

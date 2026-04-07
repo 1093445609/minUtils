@@ -1,0 +1,31 @@
+<view class="random-container">
+  <!-- 设置区域 -->
+  <view class="setting-section">
+    <text class="setting-label">最小值</text>
+    <input type="number" placeholder="请输入最小值" bindinput="onMinInput" value="{{min}}" class="number-input" />
+  </view>
+
+  <view class="setting-section">
+    <text class="setting-label">最大值</text>
+    <input type="number" placeholder="请输入最大值" bindinput="onMaxInput" value="{{max}}" class="number-input" />
+  </view>
+
+  <!-- 生成按钮 -->
+  <view class="button-section">
+    <button class="generate-button" bindtap="generateRandom" type="primary">生成随机数</button>
+  </view>
+
+  <!-- 结果显示 -->
+  <view class="result-section">
+    <text class="result-label">生成结果：</text>
+    <text class="result-value">{{result}}</text>
+  </view>
+
+  <!-- 历史记录 -->
+  <view class="history-section">
+    <text class="history-label">历史记录：</text>
+    <view class="history-list">
+      <text class="history-item" wx:for="{{history}}" wx:key="index">{{item}}</text>
+    </view>
+  </view>
+</view>

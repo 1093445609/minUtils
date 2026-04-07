@@ -1,0 +1,19 @@
+<view class="textcase-container">
+  <!-- 输入区域 -->
+  <view class="input-section">
+    <textarea placeholder="请输入文本" bindinput="onTextInput" value="{{inputText}}" class="text-input" maxlength="1000"></textarea>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="button-section">
+    <button class="convert-button" bindtap="convertToUpper">转为大写</button>
+    <button class="convert-button" bindtap="convertToLower">转为小写</button>
+    <button class="convert-button" bindtap="convertToTitle">首字母大写</button>
+  </view>
+
+  <!-- 输出区域 -->
+  <view class="output-section">
+    <text class="output-label">转换结果：</text>
+    <textarea placeholder="转换结果将显示在这里" value="{{outputText}}" class="text-output" disabled></textarea>
+  </view>
+</view>

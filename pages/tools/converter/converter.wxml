@@ -1,0 +1,32 @@
+<view class="converter-container">
+  <!-- 换算类型选择 -->
+  <view class="type-selector">
+    <view class="type-item" bindtap="selectType" data-type="length" class="{{currentType === 'length' ? 'active' : ''}}">长度</view>
+    <view class="type-item" bindtap="selectType" data-type="weight" class="{{currentType === 'weight' ? 'active' : ''}}">重量</view>
+    <view class="type-item" bindtap="selectType" data-type="temperature" class="{{currentType === 'temperature' ? 'active' : ''}}">温度</view>
+  </view>
+
+  <!-- 换算区域 -->
+  <view class="convert-section">
+    <!-- 输入部分 -->
+    <view class="input-section">
+      <input type="number" placeholder="请输入数值" bindinput="onInputChange" value="{{inputValue}}" class="value-input" />
+      <picker bindchange="onFromUnitChange" value="{{fromUnitIndex}}" range="{{fromUnits}}" class="unit-picker">
+        <view class="picker-text">{{fromUnits[fromUnitIndex]}}</view>
+      </picker>
+    </view>
+
+    <!-- 转换按钮 -->
+    <view class="swap-button" bindtap="swapUnits">
+      <text class="swap-icon">⇄</text>
+    </view>
+
+    <!-- 输出部分 -->
+    <view class="output-section">
+      <input type="text" value="{{outputValue}}" disabled class="value-output" />
+      <picker bindchange="onToUnitChange" value="{{toUnitIndex}}" range="{{toUnits}}" class="unit-picker">
+        <view class="picker-text">{{toUnits[toUnitIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+</view>

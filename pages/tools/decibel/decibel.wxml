@@ -1,0 +1,49 @@
+<view class="decibel-container">
+  <!-- 分贝值显示 -->
+  <view class="display-area">
+    <text class="decibel-value">{{decibelValue}}</text>
+    <text class="decibel-unit">dB</text>
+    <text class="decibel-level">{{decibelLevel}}</text>
+  </view>
+
+  <!-- 波形模拟 -->
+  <view class="waveform-area">
+    <view class="waveform">
+      <view class="wave-bar" wx:for="{{waveformData}}" wx:key="index" style="height: {{item}}rpx; background-color: {{waveColor}};"></view>
+    </view>
+  </view>
+
+  <!-- 控制区域 -->
+  <view class="control-area">
+    <!-- 测试按钮 -->
+    <view class="control-section">
+      <button class="test-button" bindtap="toggleTest" wx:if="{{!isTesting}}" type="primary">开始测试</button>
+      <button class="test-button" bindtap="toggleTest" wx:else type="default">停止测试</button>
+    </view>
+
+    <!-- 分贝等级说明 -->
+    <view class="level-guide">
+      <text class="guide-title">分贝等级说明：</text>
+      <view class="level-item" style="background-color: #4CAF50;">
+        <text class="level-range">0-30 dB</text>
+        <text class="level-desc">安静环境</text>
+      </view>
+      <view class="level-item" style="background-color: #8BC34A;">
+        <text class="level-range">30-60 dB</text>
+        <text class="level-desc">正常对话</text>
+      </view>
+      <view class="level-item" style="background-color: #FFEB3B;">
+        <text class="level-range">60-90 dB</text>
+        <text class="level-desc">嘈杂环境</text>
+      </view>
+      <view class="level-item" style="background-color: #FF9800;">
+        <text class="level-range">90-120 dB</text>
+        <text class="level-desc">高分贝</text>
+      </view>
+      <view class="level-item" style="background-color: #F44336;">
+        <text class="level-range">120+ dB</text>
+        <text class="level-desc">危险</text>
+      </view>
+    </view>
+  </view>
+</view>

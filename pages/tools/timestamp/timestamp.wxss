@@ -1,0 +1,93 @@
+.timestamp-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20rpx;
+}
+
+/* 转换区域 */
+.convert-section {
+  background-color: #ffffff;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 15rpx;
+}
+
+.timestamp-input {
+  width: 100%;
+  padding: 15rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 20rpx;
+}
+
+.date-picker,
+.time-picker {
+  width: 100%;
+  padding: 15rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  background-color: #f5f5f5;
+  margin-bottom: 15rpx;
+}
+
+.picker-text {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.convert-button {
+  width: 100%;
+  height: 70rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.result-label {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 10rpx;
+}
+
+.result-value {
+  display: block;
+  font-size: 28rpx;
+  color: #007AFF;
+  word-break: break-all;
+}
+
+/* 当前时间区域 */
+.current-section {
+  background-color: #ffffff;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+}
+
+.current-time {
+  display: block;
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 10rpx;
+}
+
+.current-timestamp {
+  display: block;
+  font-size: 26rpx;
+  color: #666666;
+  word-break: break-all;
+}

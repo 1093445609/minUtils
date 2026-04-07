@@ -1,0 +1,31 @@
+<!--index.wxml-->
+<scroll-view class="scrollarea" scroll-y type="list" bindscrolltolower="onReachBottom" bindrefresherpulling="onPullDownRefresh" refresher-enabled="true" refresher-background="#f5f5f5">
+  <view class="container">
+    <!-- 搜索框 -->
+    <view class="search-box">
+      <view class="search-input">
+        <text class="search-icon">🔍</text>
+        <input type="text" placeholder="搜索工具" bindinput="onSearchInput" value="{{searchText}}" />
+      </view>
+    </view>
+
+    <!-- 工具分类 -->
+    <view class="tool-categories">
+      <scroll-view scroll-x class="category-scroll">
+        <view class="category-item" wx:for="{{categories}}" wx:key="id" bindtap="selectCategory" data-id="{{item.id}}" class="{{selectedCategory === item.id ? 'active' : ''}}">
+          {{item.name}}
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 工具网格 -->
+    <view class="tool-grid">
+      <view class="tool-item" wx:for="{{filteredTools}}" wx:key="id" bindtap="navigateToTool" data-path="{{item.path}}">
+        <view class="tool-icon">
+          <text class="icon">{{item.icon}}</text>
+        </view>
+        <view class="tool-name">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

@@ -1,0 +1,45 @@
+<view class="handheld-container">
+  <!-- 弹幕显示区域 -->
+  <view class="display-area" style="background-color: {{backgroundColor}};">
+    <text class="text" style="color: {{textColor}}; font-size: {{fontSize}}rpx;">{{text}}</text>
+  </view>
+
+  <!-- 控制区域 -->
+  <view class="control-area">
+    <!-- 文本输入 -->
+    <view class="input-section">
+      <input type="text" placeholder="请输入弹幕文本" bindinput="onTextInput" value="{{text}}" class="text-input" />
+    </view>
+
+    <!-- 字体大小 -->
+    <view class="setting-section">
+      <text class="setting-label">字体大小: {{fontSize}}rpx</text>
+      <slider min="40" max="120" value="{{fontSize}}" bindchange="onFontSizeChange" class="slider" />
+    </view>
+
+    <!-- 文本颜色 -->
+    <view class="setting-section">
+      <text class="setting-label">文本颜色</text>
+      <view class="color-picker">
+        <view class="color-item" wx:for="{{textColors}}" wx:key="index" style="background-color: {{item}}; border: 2rpx solid {{textColor === item ? '#007AFF' : 'transparent'}};" bindtap="onTextColorChange" data-color="{{item}}"></view>
+      </view>
+    </view>
+
+    <!-- 背景颜色 -->
+    <view class="setting-section">
+      <text class="setting-label">背景颜色</text>
+      <view class="color-picker">
+        <view class="color-item" wx:for="{{backgroundColors}}" wx:key="index" style="background-color: {{item}}; border: 2rpx solid {{backgroundColor === item ? '#007AFF' : 'transparent'}};" bindtap="onBackgroundColorChange" data-color="{{item}}"></view>
+      </view>
+    </view>
+
+    <!-- 显示模式 -->
+    <view class="setting-section">
+      <text class="setting-label">显示模式</text>
+      <view class="mode-selector">
+        <view class="mode-item" bindtap="onModeChange" data-mode="static" class="{{mode === 'static' ? 'active' : ''}}">静态</view>
+        <view class="mode-item" bindtap="onModeChange" data-mode="scroll" class="{{mode === 'scroll' ? 'active' : ''}}">滚动</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,37 @@
+<view class="qrcode-container">
+  <!-- 输入区域 -->
+  <view class="input-section">
+    <textarea placeholder="请输入文本或URL" bindinput="onTextInput" value="{{inputText}}" class="text-input" maxlength="500"></textarea>
+  </view>
+
+  <!-- 二维码显示区域 -->
+  <view class="qrcode-area">
+    <view class="qrcode-wrapper" wx:if="{{qrcodeUrl}}">
+      <image src="{{qrcodeUrl}}" mode="aspectFit" class="qrcode-image"></image>
+    </view>
+    <view class="qrcode-placeholder" wx:else>
+      <text class="placeholder-text">输入文本后生成二维码</text>
+    </view>
+    <!-- 隐藏的canvas用于生成二维码 -->
+    <canvas canvas-id="qrcode-canvas" style="width: {{qrcodeSize}}px; height: {{qrcodeSize}}px; position: absolute; left: -9999rpx;"></canvas>
+  </view>
+
+  <!-- 控制区域 -->
+  <view class="control-area">
+    <!-- 二维码大小 -->
+    <view class="setting-section">
+      <text class="setting-label">二维码大小: {{qrcodeSize}}px</text>
+      <slider min="100" max="300" value="{{qrcodeSize}}" bindchange="onSizeChange" class="slider" />
+    </view>
+
+    <!-- 生成按钮 -->
+    <view class="button-section">
+      <button class="generate-button" bindtap="generateQRCode" type="primary" disabled="{{!inputText}}">生成二维码</button>
+    </view>
+
+    <!-- 保存按钮 -->
+    <view class="button-section" wx:if="{{qrcodeUrl}}">
+      <button class="save-button" bindtap="saveQRCode" type="default">保存二维码</button>
+    </view>
+  </view>
+</view>

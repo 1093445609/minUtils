@@ -1,0 +1,39 @@
+<view class="colorpicker-container">
+  <!-- 颜色预览 -->
+  <view class="color-preview" style="background-color: {{selectedColor}};">
+    <text class="color-value">{{selectedColor}}</text>
+  </view>
+
+  <!-- 颜色选择器 -->
+  <view class="color-selector">
+    <!-- 色相滑块 -->
+    <view class="hue-slider">
+      <view class="hue-track" bindtouchmove="onHueChange" bindtap="onHueChange">
+        <view class="hue-pointer" style="left: {{hue}}%;"></view>
+      </view>
+    </view>
+
+    <!-- 饱和度和亮度选择器 -->
+    <view class="sl-selector" bindtouchmove="onSLChange" bindtap="onSLChange">
+      <view class="sl-track" style="background-color: hsl({{hue}}, 100%, 50%);">
+        <view class="sl-pointer" style="left: {{saturation}}%; top: {{100 - lightness}}%;"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 颜色值输入 -->
+  <view class="color-inputs">
+    <view class="input-group">
+      <text class="input-label">HEX</text>
+      <input type="text" value="{{selectedColor}}" bindinput="onHexInput" class="color-input" />
+    </view>
+  </view>
+
+  <!-- 常用颜色 -->
+  <view class="preset-colors">
+    <text class="preset-title">常用颜色</text>
+    <view class="preset-grid">
+      <view class="preset-color" wx:for="{{presetColors}}" wx:key="index" style="background-color: {{item}};" bindtap="selectPresetColor" data-color="{{item}}"></view>
+    </view>
+  </view>
+</view>

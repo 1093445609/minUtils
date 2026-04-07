@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/mine/mine",
+    "pages/tools/handheld/handheld",
+    "pages/tools/ruler/ruler",
+    "pages/tools/decibel/decibel",
+    "pages/tools/calculator/calculator",
+    "pages/tools/qrcode/qrcode",
+    "pages/tools/textcase/textcase",
+    "pages/tools/random/random",
+    "pages/tools/converter/converter",
+    "pages/tools/timestamp/timestamp",
+    "pages/tools/idcard/idcard",
+    "pages/tools/colorpicker/colorpicker",
+    "pages/tools/imagecompress/imagecompress",
+    "pages/tools/password/password"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "极简工具箱",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/tab-mine.png",
+        "selectedIconPath": "images/tab-mine-active.png"
+      }
+    ],
+    "backgroundColor": "#ffffff",
+    "color": "#666666",
+    "selectedColor": "#007AFF"
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

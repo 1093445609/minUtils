@@ -1,0 +1,31 @@
+<view class="timestamp-container">
+  <!-- 时间戳转日期 -->
+  <view class="convert-section">
+    <text class="section-title">时间戳转日期</text>
+    <input type="number" placeholder="请输入时间戳" bindinput="onTimestampInput" value="{{timestamp}}" class="timestamp-input" />
+    <button class="convert-button" bindtap="convertToDate" type="primary">转换为日期</button>
+    <text class="result-label">转换结果：</text>
+    <text class="result-value">{{dateResult}}</text>
+  </view>
+
+  <!-- 日期转时间戳 -->
+  <view class="convert-section">
+    <text class="section-title">日期转时间戳</text>
+    <picker mode="date" bindchange="onDateChange" value="{{date}}" start="1970-01-01" end="2100-12-31" class="date-picker">
+      <view class="picker-text">{{date}}</view>
+    </picker>
+    <picker mode="time" bindchange="onTimeChange" value="{{time}}" class="time-picker">
+      <view class="picker-text">{{time}}</view>
+    </picker>
+    <button class="convert-button" bindtap="convertToTimestamp" type="primary">转换为时间戳</button>
+    <text class="result-label">转换结果：</text>
+    <text class="result-value">{{timestampResult}}</text>
+  </view>
+
+  <!-- 当前时间戳 -->
+  <view class="current-section">
+    <text class="section-title">当前时间</text>
+    <text class="current-time">{{currentDateTime}}</text>
+    <text class="current-timestamp">{{currentTimestamp}}</text>
+  </view>
+</view>

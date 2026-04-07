@@ -1,0 +1,61 @@
+<view class="mine-container">
+  <!-- 用户信息区域 -->
+  <view class="user-info">
+    <view class="avatar">
+      <image src="/images/avatar.png" mode="aspectFill"></image>
+    </view>
+    <view class="user-name">用户</view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="function-list">
+    <!-- 收藏常用工具 -->
+    <view class="function-item" bindtap="handleFavorites">
+      <view class="function-icon">
+        <text class="icon">★</text>
+      </view>
+      <view class="function-text">收藏常用工具</view>
+      <view class="function-arrow">
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 清空缓存 -->
+    <view class="function-item" bindtap="handleClearCache">
+      <view class="function-icon">
+        <text class="icon">🗑</text>
+      </view>
+      <view class="function-text">清空缓存</view>
+      <view class="function-arrow">
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 使用说明 -->
+    <view class="function-item" bindtap="handleInstructions">
+      <view class="function-icon">
+        <text class="icon">📖</text>
+      </view>
+      <view class="function-text">使用说明</view>
+      <view class="function-arrow">
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 关于页面 -->
+    <view class="function-item" bindtap="handleAbout">
+      <view class="function-icon">
+        <text class="icon">ℹ️</text>
+      </view>
+      <view class="function-text">关于</view>
+      <view class="function-arrow">
+        <text class="arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="version-info">
+    <text>版本 1.0.0</text>
+  </view>
+</view>
