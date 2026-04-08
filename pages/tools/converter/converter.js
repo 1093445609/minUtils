@@ -12,24 +12,24 @@ Page({
       weight: ['克', '千克', '吨', '磅', '盎司'],
       temperature: ['摄氏度', '华氏度', '开尔文']
     },
-    // 换算系数
+    // 换算系数（转换到基准单位的值）
     conversionFactors: {
       length: {
         '毫米': 1,
-        '厘米': 0.1,
-        '米': 0.001,
-        '千米': 0.000001,
-        '英寸': 0.0393701,
-        '英尺': 0.00328084,
-        '码': 0.00109361,
-        '英里': 0.000000621371
+        '厘米': 10,
+        '米': 1000,
+        '千米': 1000000,
+        '英寸': 25.4,
+        '英尺': 304.8,
+        '码': 914.4,
+        '英里': 1609344
       },
       weight: {
         '克': 1,
-        '千克': 0.001,
-        '吨': 0.000001,
-        '磅': 0.00220462,
-        '盎司': 0.035274
+        '千克': 1000,
+        '吨': 1000000,
+        '磅': 453.592,
+        '盎司': 28.3495
       }
     },
     // 从单位索引
@@ -147,9 +147,10 @@ Page({
       // 长度和重量换算
       const fromUnit = fromUnits[fromUnitIndex];
       const toUnit = toUnits[toUnitIndex];
-      const factor = conversionFactors[currentType][fromUnit];
-      const inverseFactor = 1 / conversionFactors[currentType][toUnit];
-      result = (value * factor * inverseFactor).toFixed(6);
+      // 先转换到基准单位，再转换到目标单位
+      const baseValue = value * conversionFactors[currentType][fromUnit];
+      const convertedValue = baseValue / conversionFactors[currentType][toUnit];
+      result = convertedValue.toFixed(6);
     }
 
     this.setData({ outputValue: result });

@@ -29,13 +29,14 @@
     "swc": false,
     "disableSWC": true,
     "disableUseStrict": false,
-    "useCompilerPlugins": false
+    "useCompilerPlugins": false,
+    "ignoreUploadUnusedFiles": false
   },
   "condition": {},
   "editorSetting": {
     "tabIndent": "auto",
     "tabSize": 2
   },
-  "appid": "wx63b9713ff9715fa8",
+  "appid": "wx08db490735f4ce99",
   "simulatorPluginLibVersion": {}
 }

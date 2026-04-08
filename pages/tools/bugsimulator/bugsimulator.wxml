@@ -1,0 +1,57 @@
+<view class="bugsimulator-container">
+  <!-- 标题 -->
+  <view class="title">
+    <text class="title-text">虫子模拟器</text>
+  </view>
+
+  <!-- 虫子选择 -->
+  <view class="bug-selector">
+    <text class="selector-label">选择虫子:</text>
+    <view class="bug-options">
+      <view class="bug-option" bindtap="selectBug" data-bug="spider" class="{{selectedBug === 'spider' ? 'active' : ''}}">
+        <text class="bug-icon">🕷️</text>
+        <text class="bug-name">蜘蛛</text>
+      </view>
+      <view class="bug-option" bindtap="selectBug" data-bug="caterpillar" class="{{selectedBug === 'caterpillar' ? 'active' : ''}}">
+        <text class="bug-icon">🐛</text>
+        <text class="bug-name">毛毛虫</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 模拟按钮 -->
+  <view class="control-section">
+    <button class="simulate-button" bindtap="startSimulation" type="primary" disabled="{{isSimulating}}">
+      {{isSimulating ? '模拟中...' : '开始模拟'}}
+    </button>
+  </view>
+
+  <!-- 模拟区域 -->
+  <view class="simulation-area" style="height: {{screenHeight - 400}}rpx;">
+    <view class="simulation-container">
+      <!-- 蜘蛛模拟 -->
+      <view wx:if="{{selectedBug === 'spider' && isSimulating}}" class="spider-simulation">
+        <!-- 蛛丝 -->
+        <view class="spider-web" style="height: {{spiderPosition}}rpx;"></view>
+        <!-- 蜘蛛 -->
+        <view class="spider" style="bottom: {{spiderPosition}}rpx;">
+          <text class="bug-icon">🕷️</text>
+        </view>
+      </view>
+
+      <!-- 毛毛虫模拟 -->
+      <view wx:if="{{selectedBug === 'caterpillar' && isSimulating}}" class="caterpillar-simulation">
+        <!-- 毛毛虫 -->
+        <view class="caterpillar" style="left: {{caterpillarPosition}}rpx;">
+          <text class="bug-icon">🐛</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 说明 -->
+  <view class="instructions">
+    <text class="instruction-text">使用说明:</text>
+    <text class="instruction-detail">选择一种虫子，点击开始模拟按钮，观察虫子的移动效果</text>
+  </view>
+</view>

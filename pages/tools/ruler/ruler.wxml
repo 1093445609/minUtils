@@ -21,6 +21,11 @@
       </view>
     </view>
 
+    <!-- 横屏模式 -->
+    <view class="setting-section">
+      <button class="landscape-button" bindtap="toggleLandscape" type="primary">{{isLandscape ? '退出横屏' : '横屏模式'}}</button>
+    </view>
+
     <!-- 测量说明 -->
     <view class="instruction">
       <text class="instruction-text">使用说明：</text>

@@ -1,0 +1,172 @@
+.photofilter-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20rpx;
+}
+
+/* 标题 */
+.title {
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.title-text {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333333;
+}
+
+/* 上传区域 */
+.upload-section {
+  background-color: #ffffff;
+  border-radius: 12rpx;
+  padding: 40rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400rpx;
+}
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 2rpx dashed #e0e0e0;
+  border-radius: 8rpx;
+  padding: 60rpx 20rpx;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+  border-color: #007AFF;
+  background-color: #f0f7ff;
+}
+
+.upload-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.upload-text {
+  font-size: 28rpx;
+  color: #666666;
+  text-align: center;
+}
+
+.preview-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 400rpx;
+  border-radius: 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 滤镜选择 */
+.filter-section {
+  background-color: #ffffff;
+  border-radius: 12rpx;
+  padding: 25rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.filter-options {
+  display: flex;
+  gap: 15rpx;
+  flex-wrap: wrap;
+}
+
+.filter-option {
+  flex: 1;
+  min-width: 100rpx;
+  padding: 15rpx;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-radius: 8rpx;
+  border: 2rpx solid #e0e0e0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.filter-option.active {
+  background-color: #007AFF;
+  color: #ffffff;
+  border-color: #007AFF;
+  box-shadow: 0 2rpx 8rpx rgba(0, 122, 255, 0.2);
+}
+
+.filter-name {
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+/* 滤镜强度调节 */
+.intensity-section {
+  background-color: #ffffff;
+  border-radius: 12rpx;
+  padding: 25rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.intensity-slider {
+  width: 100%;
+  margin-top: 10rpx;
+}
+
+/* 操作按钮 */
+.action-section {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.action-button {
+  flex: 1;
+  height: 80rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 12rpx;
+}
+
+/* 说明 */
+.instructions {
+  background-color: #f0f7ff;
+  border-radius: 8rpx;
+  padding: 20rpx;
+}
+
+.instruction-text {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.instruction-detail {
+  font-size: 24rpx;
+  color: #666666;
+  line-height: 1.4;
+}

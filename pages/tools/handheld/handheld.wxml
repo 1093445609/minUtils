@@ -1,4 +1,4 @@
-<view class="handheld-container">
+<view class="handheld-container" wx:if="{{!isFullscreen}}">
   <!-- 弹幕显示区域 -->
   <view class="display-area" style="background-color: {{backgroundColor}};">
     <text class="text" style="color: {{textColor}}; font-size: {{fontSize}}rpx;">{{text}}</text>
@@ -41,5 +41,18 @@
         <view class="mode-item" bindtap="onModeChange" data-mode="scroll" class="{{mode === 'scroll' ? 'active' : ''}}">滚动</view>
       </view>
     </view>
+
+    <!-- 全屏播放 -->
+    <view class="setting-section">
+      <button class="fullscreen-button" bindtap="toggleFullscreen" type="primary">{{isFullscreen ? '退出全屏' : '横屏全屏播放'}}</button>
+    </view>
   </view>
+</view>
+
+<!-- 全屏模式 -->
+<view class="fullscreen-container" wx:else style="background-color: {{backgroundColor}}; height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center; position: relative;">
+  <text class="fullscreen-text" style="color: {{textColor}}; font-size: {{fontSize * 2}}rpx; text-align: center; max-width: 90vw;">{{text}}</text>
+  <button class="exit-fullscreen" bindtap="toggleFullscreen" style="position: absolute; top: 20rpx; right: 20rpx; background-color: rgba(0,0,0,0.5); color: white; border-radius: 50%; width: 80rpx; height: 80rpx; display: flex; align-items: center; justify-content: center;">
+    <text>退出</text>
+  </button>
 </view>

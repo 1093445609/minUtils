@@ -3,7 +3,9 @@ Page({
     // 单位
     unit: 'cm',
     // 尺子刻度
-    rulerMarks: []
+    rulerMarks: [],
+    // 是否横屏
+    isLandscape: false
   },
 
   onLoad() {
@@ -30,7 +32,7 @@ Page({
       // 主刻度（1cm或1英寸）
       if (value % majorInterval === 0) {
         height = 100;
-        text = value.toString();
+        text = Math.floor(value).toString();
       }
       // 半刻度（0.5cm或0.5英寸）
       else if (value % (majorInterval / 2) === 0) {
@@ -61,5 +63,25 @@ Page({
     });
     // 重新生成刻度
     this.generateRulerMarks();
+  },
+
+  // 切换横屏模式
+  toggleLandscape() {
+    const { isLandscape } = this.data;
+    this.setData({
+      isLandscape: !isLandscape
+    });
+    
+    if (!isLandscape) {
+      // 请求横屏
+      wx.setScreenOrientation({
+        orientation: 'landscape'
+      });
+    } else {
+      // 恢复竖屏
+      wx.setScreenOrientation({
+        orientation: 'portrait'
+      });
+    }
   }
 });

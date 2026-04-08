@@ -1,120 +1,132 @@
+/* calculator.wxss */
 .calculator-container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  height: 100vh;
   background-color: #f5f5f5;
+  padding: 20rpx;
+  box-sizing: border-box;
 }
 
-/* 模式切换 */
 .mode-toggle {
   display: flex;
-  background-color: #ffffff;
-  margin: 20rpx;
-  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
   overflow: hidden;
-  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+  background-color: #e0e0e0;
 }
 
 .mode-btn {
   flex: 1;
-  padding: 20rpx;
   text-align: center;
-  font-size: 28rpx;
-  color: #666666;
-  background-color: #f0f0f0;
-  transition: all 0.2s ease;
+  padding: 20rpx;
+  font-size: 32rpx;
+  color: #666;
 }
 
 .mode-btn.active {
-  background-color: #007AFF;
-  color: #ffffff;
+  background-color: #4CAF50;
+  color: white;
 }
 
-/* 显示区域 */
 .display-area {
-  background-color: #ffffff;
-  margin: 0 20rpx 20rpx;
-  border-radius: 8rpx;
-  padding: 30rpx;
-  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
-  text-align: right;
+  background-color: #222;
+  border-radius: 10rpx;
+  padding: 30rpx 20rpx;
+  margin-bottom: 20rpx;
+  min-height: 180rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.input-area, .result-area {
+  display: flex;
+  margin-bottom: 10rpx;
+}
+
+.input-label, .result-label {
+  color: #aaa;
+  font-size: 28rpx;
+  margin-right: 10rpx;
 }
 
 .expression {
-  font-size: 28rpx;
-  color: #666666;
-  margin-bottom: 10rpx;
-  word-break: break-all;
+  color: #ddd;
+  font-size: 36rpx;
+  flex: 1;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .result {
+  color: white;
   font-size: 48rpx;
-  font-weight: 600;
-  color: #333333;
-  word-break: break-all;
+  font-weight: bold;
+  flex: 1;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-/* 按键区域 */
 .keypad {
   flex: 1;
-  background-color: #ffffff;
-  margin: 0 20rpx 20rpx;
-  border-radius: 8rpx;
-  padding: 20rpx;
-  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 15rpx;
 }
 
-/* 科学计算器 */
-.keypad.scientific {
-  height: 600rpx;
-}
-
-/* 行 */
 .row {
-  flex: 1;
   display: flex;
-  gap: 15rpx;
+  flex: 1;
+  margin-bottom: 10rpx;
 }
 
-/* 按键 */
 .key {
   flex: 1;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
-  border-radius: 8rpx;
-  font-size: 32rpx;
-  font-weight: 500;
-  color: #333333;
-  transition: all 0.2s ease;
-  user-select: none;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10rpx;
+  margin-right: 10rpx;
+  font-size: 40rpx;
+  color: #333;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
 }
 
-.key:hover {
-  background-color: #e0e0e0;
+.key:last-child {
+  margin-right: 0;
 }
 
-/* 运算符按键 */
-.key.operator {
-  background-color: #f0f7ff;
-  color: #007AFF;
-}
-
-.key.operator:hover {
-  background-color: #e0efff;
-}
-
-/* 等号按键 */
-.key.equal {
-  background-color: #007AFF;
-  color: #ffffff;
+.key.zero {
   flex: 2;
+  margin-right: 10rpx;
 }
 
-.key.equal:hover {
-  background-color: #0066cc;
+.key.operator {
+  background-color: #ff9500;
+  color: white;
+}
+
+.key.equal {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.key.function {
+  background-color: #2196F3;
+  color: white;
+  font-size: 36rpx;
+}
+
+.key:active {
+  transform: scale(0.95);
+  opacity: 0.9;
+}
+
+.scientific .key {
+  font-size: 32rpx;
 }

@@ -14,7 +14,9 @@
     "pages/tools/idcard/idcard",
     "pages/tools/colorpicker/colorpicker",
     "pages/tools/imagecompress/imagecompress",
-    "pages/tools/password/password"
+    "pages/tools/password/password",
+    "pages/tools/bugsimulator/bugsimulator",
+    "pages/tools/photofilter/photofilter"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -27,7 +27,9 @@ Page({
       { id: 10, name: '身份证号校验', icon: '🆔', path: '/pages/tools/idcard/idcard', category: 'life' },
       { id: 11, name: '颜色拾取器', icon: '🎨', path: '/pages/tools/colorpicker/colorpicker', category: 'daily' },
       { id: 12, name: '图片压缩', icon: '🖼️', path: '/pages/tools/imagecompress/imagecompress', category: 'daily' },
-      { id: 13, name: '密码生成器', icon: '🔐', path: '/pages/tools/password/password', category: 'life' }
+      { id: 13, name: '密码生成器', icon: '🔐', path: '/pages/tools/password/password', category: 'life' },
+      { id: 14, name: '虫子模拟器', icon: '🐛', path: '/pages/tools/bugsimulator/bugsimulator', category: 'daily' },
+      { id: 15, name: '照片调色', icon: '🎨', path: '/pages/tools/photofilter/photofilter', category: 'daily' }
     ],
     // 过滤后的工具列表
     filteredTools: []

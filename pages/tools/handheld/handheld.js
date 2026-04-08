@@ -10,6 +10,8 @@ Page({
     backgroundColor: '#000000',
     // 显示模式
     mode: 'scroll',
+    // 是否全屏
+    isFullscreen: false,
     // 文本颜色选项
     textColors: ['#ffffff', '#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8000'],
     // 背景颜色选项
@@ -49,5 +51,25 @@ Page({
     this.setData({
       mode: e.currentTarget.dataset.mode
     });
+  },
+
+  // 切换全屏
+  toggleFullscreen() {
+    const { isFullscreen } = this.data;
+    this.setData({
+      isFullscreen: !isFullscreen
+    });
+    
+    if (!isFullscreen) {
+      // 请求横屏
+      wx.setScreenOrientation({
+        orientation: 'landscape'
+      });
+    } else {
+      // 恢复竖屏
+      wx.setScreenOrientation({
+        orientation: 'portrait'
+      });
+    }
   }
 });

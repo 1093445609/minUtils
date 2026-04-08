@@ -8,25 +8,40 @@
 .type-selector {
   display: flex;
   background-color: #ffffff;
-  border-radius: 8rpx;
+  border-radius: 12rpx;
   overflow: hidden;
-  margin-bottom: 20rpx;
-  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  border: 2rpx solid #e0e0e0;
 }
 
 .type-item {
   flex: 1;
-  padding: 20rpx;
+  padding: 25rpx;
   text-align: center;
-  font-size: 28rpx;
-  color: #666666;
-  background-color: #f0f0f0;
-  transition: all 0.2s ease;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #000000;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+  position: relative;
+  border-right: 1rpx solid #e0e0e0;
+}
+
+.type-item:last-child {
+  border-right: none;
+}
+
+.type-item:hover {
+  background-color: #f0f7ff;
 }
 
 .type-item.active {
-  background-color: #007AFF;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #ff0000;
+  box-shadow: inset 0 0 0 2rpx rgba(255, 0, 0, 0.3);
+  font-weight: 600;
+  transform: translateY(-2rpx);
 }
 
 /* 换算区域 */
