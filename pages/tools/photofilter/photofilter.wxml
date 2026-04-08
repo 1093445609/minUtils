@@ -1,57 +1,57 @@
-<view class="photofilter-container">
-  <!-- 标题 -->
-  <view class="title">
-    <text class="title-text">照片调色</text>
+<view class="page">
+  <view class="canvas-box">
+    <canvas type="2d" id="cvs" class="canvas"></canvas>
   </view>
-  
-  <!-- 隐藏的canvas，用于保存图片 -->
-  <canvas canvas-id="filterCanvas" style="width: 0; height: 0;"></canvas>
 
-  <!-- 照片上传区域 -->
-  <view class="upload-section">
-    <view wx:if="{{!imagePath}}" class="upload-area" bindtap="chooseImage">
-      <text class="upload-icon">📷</text>
-      <text class="upload-text">点击上传照片</text>
+  <view class="upload-btn" bindtap="chooseImage">
+    <text>{{src ? '更换图片' : '选择图片'}}</text>
+  </view>
+
+  <view wx:if="{{src}}" class="panel">
+    <view class="row">
+      <text>风格预设</text>
+      <picker range="{{presetNames}}" value="selected" bindchange="onPresetChange">
+        <view class="picker-box">{{presetNames[selected]}}</view>
+      </picker>
     </view>
-    <view wx:else class="preview-area">
-      <image src="{{imagePath}}" mode="aspectFit" class="preview-image" style="filter: {{filterStyle}};"></image>
+
+    <view class="row slider-line">
+      <text>强度 {{intensity}}%</text>
+      <slider value="{{intensity}}" min="0" max="100" bindchanging="onIntensityChange" activeColor="#66ccff" backgroundColor="#444"/>
     </view>
-  </view>
 
-  <!-- 滤镜选择 -->
-  <view wx:if="{{imagePath}}" class="filter-section">
-    <text class="section-title">选择滤镜</text>
-    <view class="filter-options">
-      <view class="filter-option" bindtap="selectFilter" data-filter="none" class="{{selectedFilter === 'none' ? 'active' : ''}}">
-        <text class="filter-name">原图</text>
-      </view>
-      <view class="filter-option" bindtap="selectFilter" data-filter="portrait" class="{{selectedFilter === 'portrait' ? 'active' : ''}}">
-        <text class="filter-name">人像</text>
-      </view>
-      <view class="filter-option" bindtap="selectFilter" data-filter="fuji" class="{{selectedFilter === 'fuji' ? 'active' : ''}}">
-        <text class="filter-name">富士NC</text>
-      </view>
-      <view class="filter-option" bindtap="selectFilter" data-filter="links" class="{{selectedFilter === 'links' ? 'active' : ''}}">
-        <text class="filter-name">LINKS</text>
-      </view>
+    <view class="sep">基础调整</view>
+    <view class="row slider-line">
+      <text>曝光</text>
+      <slider value="{{exposure}}" min="-50" max="50" bindchanging="onExposure" activeColor="#ffffff" backgroundColor="#444"/>
     </view>
-  </view>
+    <view class="row slider-line">
+      <text>对比</text>
+      <slider value="{{contrast}}" min="-50" max="100" bindchanging="onContrast" activeColor="#ffffff" backgroundColor="#444"/>
+    </view>
+    <view class="row slider-line">
+      <text>饱和</text>
+      <slider value="{{saturation}}" min="-50" max="100" bindchanging="onSaturation" activeColor="#ffffff" backgroundColor="#444"/>
+    </view>
+    <view class="row slider-line">
+      <text>色温</text>
+      <slider value="{{temp}}" min="-50" max="50" bindchanging="onTemp" activeColor="#ffb64e" backgroundColor="#444"/>
+    </view>
+    <view class="row slider-line">
+      <text>色调</text>
+      <slider value="{{tint}}" min="-30" max="30" bindchanging="onTint" activeColor="#ff77ff" backgroundColor="#444"/>
+    </view>
 
-  <!-- 滤镜强度调节 -->
-  <view wx:if="{{imagePath && selectedFilter !== 'none'}}" class="intensity-section">
-    <text class="section-title">滤镜强度: {{filterIntensity}}%</text>
-    <slider min="0" max="100" value="{{filterIntensity}}" bindchange="onIntensityChange" class="intensity-slider" />
-  </view>
+    <view class="sep">风格微调</view>
+    <view class="row slider-line">
+      <text>褪色</text>
+      <slider value="{{fade}}" min="0" max="60" bindchanging="onFade" activeColor="#aaaaaa" backgroundColor="#444"/>
+    </view>
+    <view class="row slider-line">
+      <text>暗角</text>
+      <slider value="{{vignette}}" min="0" max="80" bindchanging="onVignette" activeColor="#666" backgroundColor="#444"/>
+    </view>
 
-  <!-- 操作按钮 -->
-  <view wx:if="{{imagePath}}" class="action-section">
-    <button class="action-button" bindtap="resetFilter" type="default">重置</button>
-    <button class="action-button" bindtap="saveImage" type="primary">保存到本地</button>
-  </view>
-
-  <!-- 说明 -->
-  <view class="instructions">
-    <text class="instruction-text">使用说明:</text>
-    <text class="instruction-detail">上传一张照片，选择喜欢的滤镜，调整强度，然后保存到本地</text>
+    <button class="save-btn" bindtap="saveImage">保存到相册</button>
   </view>
 </view>
