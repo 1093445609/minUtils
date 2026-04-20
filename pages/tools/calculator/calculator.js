@@ -1,284 +1,218 @@
-// calculator.js
 Page({
   data: {
-    mode: 'standard',
-    expression: '',
-    result: '0',
-    waitingForNewNumber: false,
-    lastOperator: null,
-    lastOperand: null
+    display: '0',       // 当前显示值
+    expression: '',     // 表达式显示
+    previousValue: null,// 前一个操作数
+    operator: null,     // 当前运算符
+    waitingForOperand: false, // 是否等待输入新操作数
+    activeOperator: null,     // 高亮的运算符
+    resetNext: false    // 下次输入是否重置显示
   },
 
-  onLoad() {
+  /**
+   * 数字 / 运算符 / 功能按钮 点击入口
+   */
+  onTap(e) {
+    const value = e.currentTarget.dataset.value;
+
+    if (value >= '0' && value <= '9') {
+      this.inputDigit(value);
+    } else if (value === '.') {
+      this.inputDot();
+    } else if (value === '+' || value === '-' || value === '*' || value === '/') {
+      this.handleOperator(value);
+    } else if (value === 'AC') {
+      this.clearAll();
+    } else if (value === '+/-') {
+      this.toggleSign();
+    } else if (value === '%') {
+      this.percent();
+    }
+  },
+
+  /**
+   * 等号计算
+   */
+  onEqual() {
+    const { previousValue, operator, display } = this.data;
+
+    if (operator === null || previousValue === null) return;
+
+    const currentValue = parseFloat(display);
+    const result = this.calculate(previousValue, operator, currentValue);
+
     this.setData({
-      result: '0'
+      display: this.formatResult(result),
+      expression: `${this.formatDisplay(previousValue)} ${this.getOperatorSymbol(operator)} ${this.formatDisplay(currentValue)} =`,
+      previousValue: null,
+      operator: null,
+      waitingForOperand: true,
+      activeOperator: null,
+      resetNext: true
     });
   },
 
-  // 切换模式
-  switchMode(e) {
-    const mode = e.currentTarget.dataset.mode;
-    this.setData({
-      mode: mode,
-      expression: '',
-      result: '0',
-      waitingForNewNumber: false,
-      lastOperator: null,
-      lastOperand: null
-    });
-  },
+  /* ===== 核心计算逻辑 ===== */
 
   // 输入数字
-  inputNumber(e) {
-    const num = e.currentTarget.dataset.num;
-    let { result, waitingForNewNumber } = this.data;
+  inputDigit(digit) {
+    const { display, resetNext, waitingForOperand, previousValue, operator, expression } = this.data;
 
-    if (waitingForNewNumber || result === '0' || result === '错误') {
-      result = num;
-      waitingForNewNumber = false;
+    if (resetNext || waitingForOperand) {
+      // 构建新的表达式，包含前一个操作数、运算符和当前输入的数字
+      let newExpression = expression;
+      if (previousValue !== null && operator !== null) {
+        newExpression = `${this.formatDisplay(previousValue)} ${this.getOperatorSymbol(operator)} ${digit}`;
+      }
+      
+      this.setData({
+        display: digit,
+        expression: newExpression,
+        resetNext: false,
+        waitingForOperand: false
+      });
     } else {
-      result += num;
+      const newDisplay = display === '0' ? digit : display + digit;
+      if (newDisplay.replace(/[^0-9]/g, '').length > 15) return; // 长度限制
+      
+      // 如果已经有运算符，更新表达式的最后部分
+      let newExpression = expression;
+      if (previousValue !== null && operator !== null) {
+        // 替换表达式中最后一个数字部分
+        newExpression = `${this.formatDisplay(previousValue)} ${this.getOperatorSymbol(operator)} ${newDisplay}`;
+      }
+      
+      this.setData({
+        display: newDisplay,
+        expression: newExpression
+      });
     }
-
-    this.setData({
-      result: result,
-      waitingForNewNumber: false
-    });
   },
 
   // 输入小数点
-  inputDecimal() {
-    let { result, waitingForNewNumber } = this.data;
+  inputDot() {
+    const { display, resetNext, waitingForOperand } = this.data;
 
-    if (waitingForNewNumber || result === '错误') {
-      result = '0.';
-      waitingForNewNumber = false;
-    } else if (!result.includes('.')) {
-      result += '.';
-    }
-
-    this.setData({
-      result: result,
-      waitingForNewNumber: false
-    });
-  },
-
-  // 输入运算符
-  inputOperator(e) {
-    const op = e.currentTarget.dataset.op;
-    const { expression, result, waitingForNewNumber, lastOperator, lastOperand } = this.data;
-
-    if (result === '错误') return;
-
-    const currentOperand = parseFloat(result);
-    
-    if (isNaN(currentOperand)) return;
-
-    let newExpression = expression;
-    
-    if (waitingForNewNumber && lastOperator && lastOperand !== null) {
-      // 替换最后一个运算符
-      newExpression = newExpression.slice(0, -1) + op;
+    if (resetNext || waitingForOperand) {
       this.setData({
-        expression: newExpression,
-        waitingForNewNumber: false,
-        lastOperator: op
+        display: '0.',
+        resetNext: false,
+        waitingForOperand: false
       });
       return;
     }
-    
-    if (expression && lastOperator) {
-      // 如果已有表达式和运算符，先计算当前表达式
-      try {
-        const computedResult = this.computeExpression(expression);
-        if (computedResult === '错误') {
-          this.setData({ result: '错误', waitingForNewNumber: true });
-          return;
-        }
-        newExpression = computedResult.toString() + op;
-      } catch (error) {
-        this.setData({ result: '错误', waitingForNewNumber: true });
-        return;
-      }
-    } else if (expression) {
-      newExpression += op;
-    } else {
-      newExpression = result + op;
-    }
 
-    this.setData({
-      expression: newExpression,
-      waitingForNewNumber: true,
-      lastOperator: op,
-      lastOperand: currentOperand
-    });
-  },
-
-  // 输入函数
-  inputFunction(e) {
-    const func = e.currentTarget.dataset.func;
-    const { result, waitingForNewNumber } = this.data;
-
-    if (result === '错误') return;
-
-    const currentValue = parseFloat(result);
-    if (isNaN(currentValue)) return;
-
-    let newResult = '';
-    
-    switch (func) {
-      case 'sin':
-        newResult = Math.sin(currentValue * Math.PI / 180).toString();
-        break;
-      case 'cos':
-        newResult = Math.cos(currentValue * Math.PI / 180).toString();
-        break;
-      case 'tan':
-        newResult = Math.tan(currentValue * Math.PI / 180).toString();
-        break;
-      case 'log':
-        newResult = Math.log10(currentValue).toString();
-        break;
-      case 'sqrt':
-        newResult = Math.sqrt(currentValue).toString();
-        break;
-      case 'pow2':
-        newResult = Math.pow(currentValue, 2).toString();
-        break;
-      case 'pow3':
-        newResult = Math.pow(currentValue, 3).toString();
-        break;
-      case 'pow':
-        // 幂运算需要两个操作数，所以只更新表达式
-        this.setData({
-          expression: result + '^',
-          waitingForNewNumber: true,
-          lastOperator: '^',
-          lastOperand: currentValue
-        });
-        return;
-      default:
-        return;
-    }
-
-    // 检查计算结果是否有效
-    if (newResult === 'NaN' || !isFinite(newResult)) {
-      newResult = '错误';
-    }
-
-    this.setData({
-      result: newResult,
-      expression: expression,
-      waitingForNewNumber: true
-    });
-  },
-
-  // 计算表达式
-  computeExpression(expr) {
-    try {
-      // 替换显示符号为JavaScript运算符
-      let jsExpression = expr
-        .replace(/×/g, '*')
-        .replace(/÷/g, '/')
-        .replace(/\^/g, '**');
-      
-      // 使用更安全的方式计算表达式
-      const result = Function('return ' + jsExpression)();
-      
-      if (!isFinite(result)) {
-        return '错误';
-      }
-      
-      // 处理浮点数精度问题
-      return Math.round(result * 1e10) / 1e10;
-    } catch (error) {
-      return '错误';
+    if (!display.includes('.')) {
+      this.setData({ display: display + '.' });
     }
   },
 
-  // 计算
-  calculate() {
-    let { expression, result, waitingForNewNumber, lastOperator, lastOperand } = this.data;
+  // 处理运算符
+  handleOperator(nextOperator) {
+    const { display, previousValue, operator, waitingForOperand } = this.data;
+    const currentValue = parseFloat(display);
 
-    if (result === '错误') return;
-
-    // 构建完整表达式
-    let fullExpression = expression;
-    
-    if (fullExpression) {
-      const lastChar = fullExpression[fullExpression.length - 1];
-      if ('+-*/%^'.includes(lastChar)) {
-        // 如果表达式以运算符结尾，使用当前结果作为最后一个操作数
-        if (waitingForNewNumber && lastOperand !== null) {
-          fullExpression += lastOperand.toString();
-        } else {
-          fullExpression += result;
-        }
-      }
-    } else {
-      fullExpression = result;
-    }
-
-    // 替换运算符
-    fullExpression = fullExpression
-      .replace(/×/g, '*')
-      .replace(/÷/g, '/')
-      .replace(/\^/g, '**');
-
-    try {
-      // 计算结果
-      const calculateResult = this.computeExpression(fullExpression);
-      
-      if (calculateResult === '错误') {
-        this.setData({
-          result: '错误',
-          waitingForNewNumber: true
-        });
-        return;
-      }
-      
+    if (previousValue === null) {
       this.setData({
-        expression: fullExpression,
-        result: calculateResult.toString(),
-        waitingForNewNumber: true,
-        lastOperator: null,
-        lastOperand: null
+        previousValue: currentValue,
+        operator: nextOperator,
+        expression: `${this.formatDisplay(currentValue)} ${this.getOperatorSymbol(nextOperator)}`,
+        waitingForOperand: true,
+        activeOperator: nextOperator,
+        resetNext: false
       });
-    } catch (error) {
+    } else if (operator && !waitingForOperand) {
+      const result = this.calculate(previousValue, operator, currentValue);
+      const formatted = this.formatResult(result);
       this.setData({
-        result: '错误',
-        waitingForNewNumber: true
+        display: formatted,
+        previousValue: result,
+        operator: nextOperator,
+        expression: `${this.formatDisplay(result)} ${this.getOperatorSymbol(nextOperator)}`,
+        waitingForOperand: true,
+        activeOperator: nextOperator,
+        resetNext: false
       });
+    } else {
+      this.setData({
+        operator: nextOperator,
+        expression: `${this.formatDisplay(previousValue)} ${this.getOperatorSymbol(nextOperator)}`,
+        activeOperator: nextOperator,
+        resetNext: false
+      });
+    }
+  },
+
+  // 执行计算
+  calculate(left, operator, right) {
+    switch (operator) {
+      case '+': return left + right;
+      case '-': return left - right;
+      case '*': return left * right;
+      case '/': return right === 0 ? NaN : left / right;
+      default:  return right;
     }
   },
 
   // 清除
-  clear() {
+  clearAll() {
     this.setData({
+      display: '0',
       expression: '',
-      result: '0',
-      waitingForNewNumber: false,
-      lastOperator: null,
-      lastOperand: null
+      previousValue: null,
+      operator: null,
+      waitingForOperand: false,
+      activeOperator: null,
+      resetNext: false
     });
   },
 
-  // 退格
-  backspace() {
-    let { result, waitingForNewNumber } = this.data;
+  // 正负切换
+  toggleSign() {
+    const { display } = this.data;
+    const value = parseFloat(display);
+    if (value === 0) return;
+    const result = -value;
+    this.setData({ display: this.formatResult(result) });
+  },
 
-    if (waitingForNewNumber || result === '错误') {
-      return;
+  // 百分比
+  percent() {
+    const { display } = this.data;
+    const value = parseFloat(display);
+    const result = value / 100;
+    this.setData({ display: this.formatResult(result) });
+  },
+
+  /* ===== 格式化 ===== */
+
+  // 格式化结果，去除末尾多余0，限制长度
+  formatResult(num) {
+    if (isNaN(num)) return '错误';
+    if (!isFinite(num)) return '错误';
+
+    // 使用 toPrecision 避免浮点精度问题
+    let str = parseFloat(num.toPrecision(12)).toString();
+
+    if (str.length > 12) {
+      str = num.toExponential(5);
     }
 
-    if (result.length > 1) {
-      result = result.slice(0, -1);
-    } else {
-      result = '0';
-    }
+    return str;
+  },
 
-    this.setData({
-      result: result
-    });
+  // 格式化显示值（用于表达式）
+  formatDisplay(num) {
+    const str = this.formatResult(num);
+    if (str.includes('e')) return str;
+    const parts = str.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
+  },
+
+  // 运算符符号转换
+  getOperatorSymbol(op) {
+    const map = { '+': '+', '-': '−', '*': '×', '/': '÷' };
+    return map[op] || op;
   }
 });

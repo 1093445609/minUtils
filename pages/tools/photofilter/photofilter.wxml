@@ -1,10 +1,17 @@
 <view class="page">
-  <view class="canvas-box">
+  <view class="canvas-box" bindtap="enterFullscreen">
     <canvas type="2d" id="cvs" class="canvas"></canvas>
+    <view class="fullscreen-hint">点击查看全屏效果</view>
   </view>
 
   <view class="upload-btn" bindtap="chooseImage">
     <text>{{src ? '更换图片' : '选择图片'}}</text>
+  </view>
+
+  <!-- 全屏查看界面 -->
+  <view wx:if="{{isFullscreen}}" class="fullscreen-container" bindtap="exitFullscreen">
+    <canvas type="2d" id="fullscreenCanvas" class="fullscreen-canvas"></canvas>
+    <view class="fullscreen-close">点击退出全屏</view>
   </view>
 
   <view wx:if="{{src}}" class="panel">
@@ -52,6 +59,9 @@
       <slider value="{{vignette}}" min="0" max="80" bindchanging="onVignette" activeColor="#666" backgroundColor="#444"/>
     </view>
 
-    <button class="save-btn" bindtap="saveImage">保存到相册</button>
+    <view class="btn-container">
+      <button class="reset-btn" bindtap="resetFilters">重置</button>
+      <button class="save-btn" bindtap="saveImage">保存到相册</button>
+    </view>
   </view>
 </view>
