@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="mode-bar">
+    <view class="mode-btn {{mode==='merit'?'active':''}}" bindtap="switchMode" data-mode="merit">🪵 功德</view>
+    <view class="mode-btn {{mode==='money'?'active':''}}" bindtap="switchMode" data-mode="money">💰 金钱</view>
+  </view>
+
+  <view class="counter">
+    <text class="count-num">{{count}}</text>
+    <text class="count-label">{{mode==='merit'?'功德':'金钱'}}</text>
+  </view>
+
+  <!-- 敲击区：使用 bindtap 绑定事件 -->
+  <view class="fish-wrap" bindtap="onTap" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd">
+    <view class="fish-body {{isPressed?'pressed':''}}">
+      <view class="fish-stick {{isPressed?'striking':''}}"></view>
+      <view class="fish-highlight"></view>
+    </view>
+    <view class="ripple {{showRipple?'animate':''}}"></view>
+  </view>
+
+  <!-- 浮动文字：GPU加速层，限制最大数量防卡顿 -->
+  <view class="float-layer" pointer-events="none">
+    <block wx:for="{{floats}}" wx:key="id">
+      <view class="float-text" style="left:{{item.left}}; --delay:{{item.delay}}ms">
+        {{item.text}}
+      </view>
+    </block>
+  </view>
+
+  <view class="controls">
+    <button size="mini" plain bindtap="toggleAutoTap">{{autoTap ? '停止连击' : '自动连击'}}</button>
+    <view class="tips">点击屏幕 | 按钮切换自动连击</view>
+  </view>
+</view>

@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "随机数生成"
+  "navigationBarTitleText": "随机数生成",
+  "navigationBarBackgroundColor": "#f5f5f5",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#f5f5f5"
 }

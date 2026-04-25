@@ -2,9 +2,9 @@
   <!-- 尺子显示区域 -->
   <view class="ruler-area">
     <scroll-view scroll-x class="ruler-scroll">
-      <view class="ruler">
+      <view class="ruler" style="width: {{rulerWidth}}rpx;">
         <view class="ruler-mark" wx:for="{{rulerMarks}}" wx:key="index" style="left: {{item.position}}rpx; height: {{item.height}}rpx;">
-          <text class="ruler-text" wx:if="{{item.text}}">{{item.text}}</text>
+          <text class="ruler-text" wx:if="{{item.text}}" style="font-size: {{item.fontSize}}rpx;">{{item.text}}</text>
         </view>
       </view>
     </scroll-view>
@@ -16,8 +16,8 @@
     <view class="setting-section">
       <text class="setting-label">单位</text>
       <view class="unit-selector">
-        <view class="unit-item" bindtap="switchUnit" data-unit="cm" class="{{unit === 'cm' ? 'active' : ''}}">厘米</view>
-        <view class="unit-item" bindtap="switchUnit" data-unit="inch" class="{{unit === 'inch' ? 'active' : ''}}">英寸</view>
+        <view class="unit-item {{unit === 'cm' ? 'active' : ''}}" bindtap="switchUnit" data-unit="cm">厘米</view>
+        <view class="unit-item {{unit === 'inch' ? 'active' : ''}}" bindtap="switchUnit" data-unit="inch">英寸</view>
       </view>
     </view>
 

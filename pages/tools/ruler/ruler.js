@@ -1,97 +1,115 @@
 Page({
   data: {
-    // 单位
     unit: 'cm',
-    // 尺子刻度
     rulerMarks: [],
-    // 是否横屏
-    isLandscape: false
+    isLandscape: false,
+    pxPerCm: 0,
+    pxPerInch: 0,
+    rulerWidth: 0
   },
 
   onLoad() {
-    // 初始化尺子刻度
+    this.initDeviceInfo();
     this.generateRulerMarks();
   },
 
-  // 生成尺子刻度
-  generateRulerMarks() {
-    const { unit } = this.data;
-    const marks = [];
-    const totalLength = unit === 'cm' ? 20 : 8; // 20厘米或8英寸
-    const pixelsPerUnit = unit === 'cm' ? 50 : 127; // 每单位像素数
+  initDeviceInfo() {
+    const systemInfo = wx.getSystemInfoSync();
+    const pixelRatio = systemInfo.pixelRatio;
+    
+    const basePxPerInch = 96;
+    const basePxPerCm = basePxPerInch / 2.54;
+    
+    const pxPerCm = basePxPerCm * pixelRatio;
+    const pxPerInch = basePxPerInch * pixelRatio;
+    
+    this.setData({
+      pxPerCm: pxPerCm,
+      pxPerInch: pxPerInch
+    });
+  },
 
-    if (unit === 'cm') {
-      // 厘米刻度：1cm为主刻度，0.5cm为半刻度，0.1cm为小刻度
+  generateRulerMarks() {
+    const { unit, pxPerCm, pxPerInch } = this.data;
+    const marks = [];
+    
+    const isCm = unit === 'cm';
+    const pixelsPerUnit = isCm ? pxPerCm : pxPerInch;
+    const totalUnits = isCm ? 20 : 8;
+    const rulerWidth = totalUnits * pixelsPerUnit;
+    
+    this.setData({ rulerWidth: rulerWidth });
+
+    if (isCm) {
       const majorInterval = 1;
       const halfInterval = 0.5;
       const minorInterval = 0.1;
+      const canvasHeight = 200;
       
-      for (let i = 0; i <= totalLength / minorInterval; i++) {
+      for (let i = 0; i <= totalUnits / minorInterval; i++) {
         const value = i * minorInterval;
         const position = value * pixelsPerUnit;
         let height = 0;
         let text = '';
+        let fontSize = 0;
 
-        // 主刻度（1cm）
         if (value % majorInterval === 0) {
-          height = 100;
+          height = canvasHeight * 0.5;
           text = Math.floor(value).toString();
-        }
-        // 半刻度（0.5cm）
-        else if (value % halfInterval === 0) {
-          height = 70;
-        }
-        // 小刻度（0.1cm）
-        else {
-          height = 40;
+          fontSize = 28;
+        } else if (value % halfInterval === 0) {
+          height = canvasHeight * 0.35;
+          fontSize = 20;
+        } else {
+          height = canvasHeight * 0.2;
+          fontSize = 16;
         }
 
         marks.push({
           position: position,
           height: height,
-          text: text
+          text: text,
+          fontSize: fontSize
         });
       }
     } else {
-      // 英寸刻度：1英寸为主刻度，1/2、1/4、1/8英寸为次刻度，1/16英寸为小刻度
       const majorInterval = 1;
-      const halfInterval = 1/2;
-      const quarterInterval = 1/4;
-      const eighthInterval = 1/8;
+      const halfInterval = 0.5;
+      const quarterInterval = 0.25;
+      const eighthInterval = 0.125;
       const sixteenthInterval = 1/16;
+      const canvasHeight = 200;
       
-      for (let i = 0; i <= totalLength / sixteenthInterval; i++) {
+      for (let i = 0; i <= totalUnits / sixteenthInterval; i++) {
         const value = i * sixteenthInterval;
         const position = value * pixelsPerUnit;
         let height = 0;
         let text = '';
+        let fontSize = 0;
 
-        // 主刻度（1英寸）
         if (value % majorInterval === 0) {
-          height = 100;
+          height = canvasHeight * 0.5;
           text = Math.floor(value).toString();
-        }
-        // 半刻度（1/2英寸）
-        else if (value % halfInterval === 0) {
-          height = 80;
-        }
-        // 1/4英寸刻度
-        else if (value % quarterInterval === 0) {
-          height = 65;
-        }
-        // 1/8英寸刻度
-        else if (value % eighthInterval === 0) {
-          height = 50;
-        }
-        // 1/16英寸刻度
-        else {
-          height = 35;
+          fontSize = 28;
+        } else if (value % halfInterval === 0) {
+          height = canvasHeight * 0.4;
+          fontSize = 20;
+        } else if (value % quarterInterval === 0) {
+          height = canvasHeight * 0.32;
+          fontSize = 16;
+        } else if (value % eighthInterval === 0) {
+          height = canvasHeight * 0.25;
+          fontSize = 14;
+        } else {
+          height = canvasHeight * 0.17;
+          fontSize = 12;
         }
 
         marks.push({
           position: position,
           height: height,
-          text: text
+          text: text,
+          fontSize: fontSize
         });
       }
     }
@@ -101,17 +119,14 @@ Page({
     });
   },
 
-  // 切换单位
   switchUnit(e) {
     const unit = e.currentTarget.dataset.unit;
     this.setData({
       unit: unit
     });
-    // 重新生成刻度
     this.generateRulerMarks();
   },
 
-  // 切换横屏模式
   toggleLandscape() {
     const { isLandscape } = this.data;
     this.setData({
@@ -119,15 +134,18 @@ Page({
     });
     
     if (!isLandscape) {
-      // 请求横屏
       wx.setScreenOrientation({
         orientation: 'landscape'
       });
     } else {
-      // 恢复竖屏
       wx.setScreenOrientation({
         orientation: 'portrait'
       });
     }
+    
+    setTimeout(() => {
+      this.initDeviceInfo();
+      this.generateRulerMarks();
+    }, 100);
   }
 });

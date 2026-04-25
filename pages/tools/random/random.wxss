@@ -1,10 +1,12 @@
-.random-container {
-  min-height: 100vh;
+page {
   background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.random-container {
   padding: 20rpx;
 }
 
-/* 设置区域 */
 .setting-section {
   background-color: #ffffff;
   border-radius: 8rpx;
@@ -28,9 +30,9 @@
   border-radius: 8rpx;
   font-size: 28rpx;
   color: #333333;
+  box-sizing: border-box;
 }
 
-/* 按钮区域 */
 .button-section {
   margin-bottom: 20rpx;
 }
@@ -41,9 +43,13 @@
   font-size: 32rpx;
   font-weight: 600;
   border-radius: 8rpx;
+  background-color: #007AFF;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 结果显示 */
 .result-section {
   background-color: #ffffff;
   border-radius: 8rpx;
@@ -68,7 +74,6 @@
   text-align: center;
 }
 
-/* 历史记录 */
 .history-section {
   background-color: #ffffff;
   border-radius: 8rpx;

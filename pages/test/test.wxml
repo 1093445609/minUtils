@@ -1,0 +1,6 @@
+<view class="container">
+  <text class="count">{{count}}</text>
+  <view class="tap-area" bindtap="onTap">
+    <text>点击我测试</text>
+  </view>
+</view>

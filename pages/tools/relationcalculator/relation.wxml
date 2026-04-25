@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="header">
+    <text class="title">亲戚关系计算器</text>
+  </view>
+
+  <view class="relation-selector">
+    <view class="relation-row">
+      <picker class="relation-picker" bindchange="onFirstRelationChange" value="{{firstRelationIndex}}" range="{{relations}}">
+        <view class="picker-display">{{firstRelation || '请选择关系'}}</view>
+      </picker>
+      <text class="fixed-text">的</text>
+      <picker class="relation-picker" bindchange="onSecondRelationChange" value="{{secondRelationIndex}}" range="{{relations}}">
+        <view class="picker-display">{{secondRelation || '请选择关系'}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="action-buttons">
+    <button class="btn btn-calc" bindtap="calculate">计算</button>
+  </view>
+
+  <view class="error" wx:if="{{error}}">⚠️ {{error}}</view>
+
+  <view class="result" wx:if="{{showResult && result}}">
+    <text class="result-label">你应该称呼：</text>
+    <text class="result-text">{{result.title}}</text>
+  </view>
+</view>

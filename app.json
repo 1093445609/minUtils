@@ -2,11 +2,11 @@
   "pages": [
     "pages/index/index",
     "pages/mine/mine",
+    "pages/test/test",
     "pages/tools/handheld/handheld",
     "pages/tools/ruler/ruler",
     "pages/tools/decibel/decibel",
     "pages/tools/calculator/calculator",
-    "pages/tools/qrcode/qrcode",
     "pages/tools/textcase/textcase",
     "pages/tools/random/random",
     "pages/tools/converter/converter",
@@ -15,8 +15,9 @@
     "pages/tools/colorpicker/colorpicker",
     "pages/tools/imagecompress/imagecompress",
     "pages/tools/password/password",
-    "pages/tools/bugsimulator/bugsimulator",
-    "pages/tools/photofilter/photofilter"
+    "pages/tools/photofilter/photofilter",
+    "pages/tools/woodenfish/woodenfish",
+    "pages/tools/relationcalculator/relation"
   ],
   "window": {
     "navigationBarTextStyle": "black",
